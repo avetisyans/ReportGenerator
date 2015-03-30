@@ -1,0 +1,15 @@
+.red {
+    color: red;
+}
+
+.navy {
+    color: navy;
+}
+/* ng-cload */
+[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate) {
+    display:none !important;
+}
+
+th {
+    background: #c9c5c5;
+}
