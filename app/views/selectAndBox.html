@@ -1,0 +1,9 @@
+<div class="selectAndBox" class="selectpicker">
+    <select ng-change="openBox(selected)" ng-model="selected"
+        ng-options="opt as opt.label for opt in options">
+    </select>
+    <div ng-show="boxFlag">
+        <textarea class="form-control" ng-model="areaText">	
+        </textarea>
+    </div>
+</div>

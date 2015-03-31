@@ -3,21 +3,32 @@
     var ReportController = function ($scope, $routeParams, reportFactory) {
         
         $scope.test = "Test Variable";
-        $scope.done = false;
+        $scope.boxName = "";
+        $scope.boxFlag = false;
 
-        $scope.openBox= function(selected) {
+        $scope.openBox = function(selected) {
             if ($scope.selected.label === "Done") {
-
-                $scope.done = true;
+                $scope.boxFlag = true;
             } else {
-                $scope.done = false;
+                $scope.boxFlag = false;
+            }
+        };
+
+        $scope.openAnotherBox = function(selected) {
+            switch ($scope.selected.label) {
+                case "Done":
+                    $scope.boxFlag = true;
+                    break;
+                case "To-Do":
+                    $scope.boxFlag = true;
+                    break;
             }
         };
 
 
         $scope.options = [
-            { label: 'Done', value: 1 },
-            { label: 'To-Do', value: 2 }
+            { label: 'Done'},
+            { label: 'To-Do'}
         ];
 
 

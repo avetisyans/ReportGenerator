@@ -1,11 +1,13 @@
 
 <div class="container">
 	<h2 class="text-center">Report Page</h2>
-            <select ng-change="openBox(selected)" ng-model="selected"
-                ng-options="opt as opt.label for opt in options">
-            </select>{{ selected }}
-            <div ng-show="done" class="well">	
-            	<h4>Testing Div</h4>
-            </div>
+	    <select-and-box></select-and-box>
+	<br /><br /><br /><br /><br />
+	<div class="well">
+		<h3>Output</h3>
+		{{selected.label}}
+		<br />
+		{{areaText}}
+	</div>
 </div>
 
