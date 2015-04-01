@@ -3,11 +3,23 @@
 	<h2 class="text-center">Report Page</h2>
 	    <select-and-box></select-and-box>
 	<br /><br /><br /><br /><br />
-	<div class="well">
+<!-- 	<div class="well">
 		<h3>Output</h3>
-		{{selected.label}}
-		<br />
-		{{areaText}}
+		<strong>{{selected.label}}</strong>
+			<br />
+		<pre>{{areaText}}</pre>
+		<strong>{{selected.label}}</strong>
+			<br />
+		<pre>{{areaText}}</pre>
+	</div>
+
+	<hr /><hr /> -->
+	<div>	
+		<h2>Test Output</h2>
+		<div class="well" ng-repeat="item in output">
+			<strong>{{item.heading}}</strong>
+			<pre> {{ item.text }}</pre>
+		</div>
 	</div>
 </div>
 

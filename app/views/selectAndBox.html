@@ -3,7 +3,7 @@
         ng-options="opt as opt.label for opt in options">
     </select>
     <div ng-show="boxFlag">
-        <textarea class="form-control" ng-model="areaText">	
+        <textarea ng-change="addToHeading(areaText, selected.label)" rows="7" cols="50" class="form-control" ng-model="areaText">	
         </textarea>
     </div>
 </div>
