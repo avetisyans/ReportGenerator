@@ -1,6 +1,6 @@
 
 <div class="container">
-	<h2 class="text-center">Report Page</h2>
+	<h3 class="text-center">Report Generator</h3>
 	    <select-and-box></select-and-box>
 	<br /><br /><br /><br /><br />
 <!-- 	<div class="well">
@@ -14,12 +14,14 @@
 	</div>
 
 	<hr /><hr /> -->
-	<div>	
-		<h2>Test Output</h2>
-		<div class="well" ng-repeat="item in output">
-			<strong>{{item.heading}}</strong>
-			<pre> {{ item.text }}</pre>
-		</div>
+	<div class="well" ng-show="boxFlag">	
+		<h4 style="font-family:'Arial Black', Geneva, sans-serif" class="text-center">Report Content</h4>
+		 <ul style="list-style-type:none"  ui-sortable="srcSortableOptions" ng-model="output">
+		<li  ng-repeat="item in output">
+			<strong style="font-family:Comic Sans MS, sans-serif; font-size: 17px;">{{item.heading}}</strong>
+			<pre highlight="{{item.heading}}" class="prettyprint linenums">{{ item.text }}</pre>
+		</li>
+		</ul>
 	</div>
 </div>
 

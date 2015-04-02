@@ -1,5 +1,5 @@
 (function () {
-    var app = angular.module('reportApp', ['ngRoute', 'ngAnimate']);
+    var app = angular.module('reportApp', ['ngRoute', 'ngAnimate', 'ui.sortable']);
 
     app.config(function($routeProvider) {
         $routeProvider

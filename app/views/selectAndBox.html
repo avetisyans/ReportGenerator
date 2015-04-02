@@ -1,7 +1,7 @@
 <div class="selectAndBox" class="selectpicker">
-    <select ng-change="openBox(selected)" ng-model="selected"
-        ng-options="opt as opt.label for opt in options">
-    </select>
+    <select id="headerSelect" ng-change="openBox(selected)" ng-model="selected"
+        ng-options="opt as opt.label for opt in options" make-highlight>
+    </select><span ng-hide="boxFlag"> -- Choose a header for your report</span>
     <div ng-show="boxFlag">
         <textarea ng-change="addToHeading(areaText, selected.label)" rows="7" cols="50" class="form-control" ng-model="areaText">	
         </textarea>
