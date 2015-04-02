@@ -19,7 +19,7 @@ angular.module('reportApp').directive('makeHighlight', function() {
         		console.log('t', t.prev());
         		t.animate({borderColor: "red"}, 200)
         		  .animate({borderColor: "black"}, 1000);
-        		  t.prev().animate({color: "red"}, 200)
+        		  t.siblings('strong').animate({color: "red"}, 200)
         		  .animate({color: "black"}, 1000);
         	});
         }

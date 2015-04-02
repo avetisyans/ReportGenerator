@@ -1,5 +1,5 @@
 body {
-	background: #F8F8F8;
+	background: #f8f8f8;
 }
 .red {
     color: red;
@@ -22,5 +22,5 @@ select {
 }
 
 .well {
-	background: #eeee4e;
+	background: rgba(235, 235, 64, 0.61);
 }
