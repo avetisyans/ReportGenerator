@@ -17,41 +17,13 @@ angular.module('reportApp').directive('makeHighlight', function() {
         		console.log('%c CHANGED: '+ scope.selected.label, 'color: brown');
         		var t = $('pre[highlight="'+ lb + '"');
         		console.log('t', t.prev());
-        		t.animate({borderColor: "red"}, 200)
-        		  .animate({borderColor: "black"}, 1000);
-        		  t.siblings('strong').animate({color: "red"}, 200)
-        		  .animate({color: "black"}, 1000);
+        		t.animate({borderColor: "red"}, 100)
+        		  .animate({borderColor: "black"}, 200);
+        		  t.siblings('strong').animate({color: "red"}, 100)
+        		  .animate({color: "black"}, 200);
         	});
         }
     }
 });
-
-/*angular.module('reportApp').directive('itemsDrag', function() {
-	return {
-		link: function(scope, element, attrs) {
-			element.draggable();
-			console.log('%c draggable ', 'color: green');
-			scope.$on('$destroy', function() {
-				element.off('**');
-			});
-		}
-	}
-});*/
-
-/*app.directive('reportApp', function()
-{
-    return {
-        link: function(scope, element, attrs)
-        {
-             element.draggable();
- console.log('%c draggable ', 'color: green');
-             scope.$on('$destroy', function()
-             {
-                 element.off('**');
-             });
-        }
-    };
-});*/
-
 
 }());
