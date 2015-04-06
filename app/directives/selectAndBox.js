@@ -17,9 +17,9 @@ angular.module('reportApp').directive('makeHighlight', function() {
         		console.log('%c CHANGED: '+ scope.selected.label, 'color: brown');
         		var t = $('pre[highlight="'+ lb + '"');
         		console.log('t', t.prev());
-        		t.animate({borderColor: "red"}, 100)
+        		t.animate({borderColor: "red"}, 200)
         		  .animate({borderColor: "black"}, 200);
-        		  t.siblings('strong').animate({color: "red"}, 100)
+        		  t.siblings('strong').animate({color: "red"}, 200)
         		  .animate({color: "black"}, 200);
         	});
         }
