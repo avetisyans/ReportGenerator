@@ -3,6 +3,12 @@ var express = require('express'),
     bodyParser = require('body-parser');
     router = express.Router();
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/reportDB');
+
+var Report = require('./app/models/report');
+var User   = require('./app/models/user');
+
 app.use(express.static(__dirname, '/'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -50,7 +56,66 @@ router.delete('/customers/:id', function(req, res) {
     res.json(data);
 });*/
 
+
+
+router.get('/', function(req, res) {
+    console.log("GET EEEEEaaxxx");
+    res.json({"message": "Responding from Server.js"});
+});
+
+router.get('/reports', function(req, res) {
+    console.log("GET EEEEEaaxxx");
+    Report.find({}, function(err, report) {
+        if (err) {
+           return "Errrrrrrrrrrrooooooooorrrr"; 
+        } 
+        res.json(report);
+    });
+   // res.json({"message": "Responding from Server.js"});
+});
+
+router.get('/users', function(req, res) {
+    console.log("GET Users");
+    User.find({}, function(err, user) {
+        if (err) {
+           return "Errrrrrrrrrrrooooooooorrrr"; 
+        } 
+        res.json(user);
+    });
+   // res.json({"message": "Responding from Server.js"});
+});
+
+router.post('/reports', function(req, res) {
+    var report = new Report();
+    report.username = "ThirdUser";
+    report.report.To_Do = "3asdkfjas";
+    report.report.Done = "3ddddasdkfjas";
+    report.report.Skipped = "3SSSSSSSasdkfjas";
+
+    report.save(function(err) {
+        if (err) {
+            res.send(err);
+        }
+        res.json({message: "Your Report has been Created"});
+    });
+});
+
+router.post('/users', function(req, res) {
+    var user = new User();
+    user.username = "SecondUser";
+    user.password = "password2";
+
+    user.save(function(err) {
+        if (err) {
+            res.send(err);
+        }
+        res.json({message: "User has been Created"});
+    });
+});
+
 app.use('/api', router);
+
+
 
 app.listen(3000);
 
