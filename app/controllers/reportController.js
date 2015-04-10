@@ -1,9 +1,12 @@
 (function () {
 
-    var ReportController = function ($scope, $routeParams, reportFactory) {
+    var ReportController = function ($scope, $routeParams, reportFactory, sharedFactory) {
 
         $scope.boxFlag = false;
         $scope.output = [];
+        var outputForReport = [];
+        var i = 0;
+
         var nameExists = false;
 
         $scope.openBox = function(selected) {
@@ -40,13 +43,50 @@
         }
 
         $scope.options = [
-        { label: 'Done'},
-        { label: 'To-Do'},
-        { label: 'Skipped'}
-        ];
+                            { label: 'Done'},
+                            { label: 'To_Do'},
+                            { label: 'Skipped'}
+                         ];
+
+        $scope.placeReport = function(report) {
+            placed = true;
+            console.log(report['Skipped']);
+            console.log(report);
+            var optionsForReport = [
+                                { label: "Done"},
+                                { label: 'To_Do'},
+                                { label: 'Skipped'}
+                             ];
+        for (var key in optionsForReport) {
+            var obj = {};
+            var field = optionsForReport[key].label
+            obj[field] = report.report_body[field];
+            outputForReport.push(obj);
+        }
+
+        console.log(outputForReport);
+
+
+        optionsForReport = [];
+        outputForReport = [];
+        }
+
+    function init() {
+            reportFactory.getReportsByUsername(sharedFactory.getProperty().username)
+                .success(function(reports) {
+                    $scope.reports = reports;
+                })
+                .error(function(data, status, headers, config) {
+                    console.log("LibFactory Error");
+                      console.log(data.error + ' ' + status);
+                });
+    }
+        
+    init();
+
     };
 
-    ReportController.$inject = ['$scope', '$routeParams', 'reportFactory'];
+    ReportController.$inject = ['$scope', '$routeParams', 'reportFactory', 'sharedFactory'];
 
     angular.module('reportApp')
     .controller('ReportController', ReportController);

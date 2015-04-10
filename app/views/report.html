@@ -1,3 +1,12 @@
+<p> Username:  {{username}} </p>
+<p> Reports : {{ reports }}  </p>
+<ul style="list-style-type:none">
+	<li style="display: inline-block" ng-repeat="report in reports">
+		<button class="btn btn-default" ng-click="placeReport(report)">Report </button>
+	</li>
+</ul>
+<div ng-repeat="report in reports">
+</div>
 
 <div class="container">
 	<h3 class="text-center">Report Generator</h3>

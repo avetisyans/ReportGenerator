@@ -6,8 +6,9 @@ var express = require('express'),
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/reportDB');
 
-var Report = require('./app/models/report');
+
 var User   = require('./app/models/user');
+var Report = require('./app/models/report');
 
 app.use(express.static(__dirname, '/'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -63,12 +64,14 @@ router.get('/', function(req, res) {
     res.json({"message": "Responding from Server.js"});
 });
 
-router.get('/reports', function(req, res) {
-    console.log("GET EEEEEaaxxx");
-    Report.find({}, function(err, report) {
+router.get('/reports/:username', function(req, res) {
+    var username = req.params.username;
+    Report.find({"username": username}, function(err, report) {
         if (err) {
-           return "Errrrrrrrrrrrooooooooorrrr"; 
+           res.status(404);
         } 
+        console.log('report is: ' + report);
+        console.log('report.length is: ' + report.length);
         res.json(report);
     });
    // res.json({"message": "Responding from Server.js"});
@@ -76,7 +79,7 @@ router.get('/reports', function(req, res) {
 
 router.get('/users', function(req, res) {
     console.log("GET Users");
-    User.find({}, function(err, user) {
+    User.find({"username": "FirstUser"}, function(err, user) {
         if (err) {
            return "Errrrrrrrrrrrooooooooorrrr"; 
         } 
@@ -86,36 +89,88 @@ router.get('/users', function(req, res) {
 });
 
 router.post('/reports', function(req, res) {
-    var report = new Report();
-    report.username = "ThirdUser";
-    report.report.To_Do = "3asdkfjas";
-    report.report.Done = "3ddddasdkfjas";
-    report.report.Skipped = "3SSSSSSSasdkfjas";
-
-    report.save(function(err) {
+    User.find({username : "FirstUser"}, function(err, user) {
         if (err) {
-            res.send(err);
+            return "EEEroror";
         }
-        res.json({message: "Your Report has been Created"});
+        console.log("user.id is: " + user._id);
+        console.log("user.password is: " + user.password);
+        console.log("user lenght is " + user.length);
+
+        var report = new Report();
+        report.report.To_Do = "To_Do of FirstUser";
+        report.Done = "Done of FirstUser";
+        report.Skipped = "Skipped of FirstUser";
+        report.user_id = user._id;
+        report.save(function(err) {
+            if (err) {
+                res.send(err);
+            }
+            res.json({message: "Your Report has been Created"});
+        });
     });
 });
 
-router.post('/users', function(req, res) {
+router.post('/us', function(req, res) {
     var user = new User();
-    user.username = "SecondUser";
-    user.password = "password2";
+    user.username = "FirstUser";
+    user.password = "password1";
 
-    user.save(function(err) {
+    user.save(function(err, rep) {
         if (err) {
             res.send(err);
         }
+        var report = new Report();
+        report.report_body.To_Do = "1 To_Do OF FirstUser";
+        report.report_body.Done = "1 Done of FirstUser";
+        report.report_body.Skipped = "1 Skipped of FirstUser";
+        report.user_id = rep;
+        report.username = "FirstUser";
+        report.save();
+
+        var report = new Report();
+        report.report_body.To_Do = "2 To_Do OF FirstUser";
+        report.report_body.Done = "2 Done of FirstUser";
+        report.report_body.Skipped = "2 Skipped of FirstUser";
+        report.user_id = rep;
+        report.username = "FirstUser";
+        report.save();
         res.json({message: "User has been Created"});
     });
 });
 
+router.post('/authenticate', function(req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    console.log("password is: " + password);
+    console.log("username is: " + username);
+    User.find({"username": username, "password": password}, function(err, user) {
+        if (err || user.length == 0) {
+            console.log("user is: " + user);
+            console.log("user is: " + user.length);
+
+            res.status(400);
+        }
+        console.log("*******************")
+        res.json(user);
+    })
+});
+
 app.use('/api', router);
 
+/*router.put('/books/:bookId', function(req, res) {
+    var bookId = parseInt(req.params.bookId);
+    var book = null;
+    var bookRank = req.body.rank;
 
+    for (var i = 0, len = books.length; i < len; ++i) {
+        if (books[i].id === bookId) {
+            books[i].rank = bookRank;
+            book = books[i];
+        }
+    }
+    res.json(book);
+});*/
 
 app.listen(3000);
 
