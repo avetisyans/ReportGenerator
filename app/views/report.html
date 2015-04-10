@@ -1,8 +1,8 @@
-<p> Username:  {{username}} </p>
-<p> Reports : {{ reports }}  </p>
+
+
 <ul style="list-style-type:none">
 	<li style="display: inline-block" ng-repeat="report in reports">
-		<button class="btn btn-default" ng-click="placeReport(report)">Report </button>
+		<button class="btn btn-default" ng-click="placeReport(report)">Report {{ report._id.charAt(23) }}</button>
 	</li>
 </ul>
 <div ng-repeat="report in reports">
@@ -13,12 +13,12 @@
 	    <select-and-box></select-and-box>
 	<br /><br /><br />
 
-	<div class="letter" ng-show="boxFlag" >	
+	<div class="letter" ng-show="!!reportModel" >	
 		<h4 style="font-family:'Arial Black', Geneva, sans-serif" class="text-center">Report Content</h4>
-		 <ul style="list-style-type:none"  ui-sortable="srcSortableOptions" ng-model="output">
-		<li  ng-repeat="item in output">
-			<strong style="font-family:Comic Sans MS, sans-serif; font-size: 17px;">{{item.heading}}</strong>
-			<pre highlight="{{item.heading}}" class="prettyprint linenums">{{ item.text }}</pre>
+		 <ul style="list-style-type:none"  ui-sortable="srcSortableOptions" ng-model="reportModel">
+		<li  ng-repeat="item in reportModel">
+			<strong style="font-family:Comic Sans MS, sans-serif; font-size: 17px;">{{item.reportHeader}}</strong>
+			<pre highlight="{{item.reportHeader}}" class="prettyprint linenums">{{ item.reportBody }}</pre>
 		</li>
 		</ul>
 	</div>

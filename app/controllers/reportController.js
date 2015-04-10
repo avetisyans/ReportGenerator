@@ -1,89 +1,47 @@
 (function () {
 
     var ReportController = function ($scope, $routeParams, reportFactory, sharedFactory) {
+        var reportFormat = [];
+        $scope.output = {};
+        $scope.i = 1;
 
-        $scope.boxFlag = false;
-        $scope.output = [];
-        var outputForReport = [];
-        var i = 0;
+        function init() {
+                reportFactory.getReportsByUsername(sharedFactory.getProperty().username)
+                    .success(function(reports) {
+                        console.log("%c report is: " + reports, "color: orange;");
+                        $scope.reports = reports;
 
-        var nameExists = false;
+                    })
+                    .error(function(data, status, headers, config) {
+                        console.log("LibFactory Error");
+                          console.log(data.error + ' ' + status);
+                    });
+        }
+            
+        init();
 
-        $scope.openBox = function(selected) {
-            if ($scope.selected.label !== "") {
-                $scope.boxFlag = true;
-                nameExists = false;
-                for (var key in $scope.output) {
-                    if ($scope.output[key].heading === $scope.selected.label) {
-                        nameExists = true;
-                        console.log('%c nameExists is: ', 'color: blue',nameExists);
-                        $scope.areaText = $scope.output[key].text;
+        $scope.placeReport = function(reports) {
+            console.log("Calling placeReport");
+            $scope.reportModel = [];
+            reportFormat = [];
+
+                for (var k in reports.report_body) {
+                    if (reports.report_body.hasOwnProperty(k)) {
+                        var obj = {};
+                        console.log(k + " --> " + reports.report_body[k]);
+                        obj['reportHeader'] = k;
+                        obj['reportBody'] = reports.report_body[k];
+                       
                     }
+                     reportFormat.push(obj);
                 }
 
-                if (nameExists === false) {
-                    console.log('%c nameExists is: ', 'color: orange',nameExists);
-                    $scope.output.push({
-                        heading: $scope.selected.label
-                    });  
-                    $scope.areaText = "";
-                }
-
-            } else {
-                $scope.boxFlag = false;
-            }
-        };
-
-        $scope.addToHeading = function(areaText, label) {
-            for (var key in $scope.output) {
-                if ($scope.output[key].heading === label) {
-                    $scope.output[key].text = areaText;
-                }
-            }
+            $scope.reportModel = reportFormat;
         }
 
-        $scope.options = [
-                            { label: 'Done'},
-                            { label: 'To_Do'},
-                            { label: 'Skipped'}
-                         ];
-
-        $scope.placeReport = function(report) {
-            placed = true;
-            console.log(report['Skipped']);
-            console.log(report);
-            var optionsForReport = [
-                                { label: "Done"},
-                                { label: 'To_Do'},
-                                { label: 'Skipped'}
-                             ];
-        for (var key in optionsForReport) {
-            var obj = {};
-            var field = optionsForReport[key].label
-            obj[field] = report.report_body[field];
-            outputForReport.push(obj);
+        $scope.alignBody = function(selected) {
+            console.log("%c " + "selected is: " + selected, "color:purple;");
         }
-
-        console.log(outputForReport);
-
-
-        optionsForReport = [];
-        outputForReport = [];
-        }
-
-    function init() {
-            reportFactory.getReportsByUsername(sharedFactory.getProperty().username)
-                .success(function(reports) {
-                    $scope.reports = reports;
-                })
-                .error(function(data, status, headers, config) {
-                    console.log("LibFactory Error");
-                      console.log(data.error + ' ' + status);
-                });
-    }
-        
-    init();
-
     };
 
     ReportController.$inject = ['$scope', '$routeParams', 'reportFactory', 'sharedFactory'];

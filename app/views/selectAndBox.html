@@ -1,9 +1,9 @@
 <div class="selectAndBox" class="selectpicker">
-    <select id="headerSelect" ng-change="openBox(selected)" ng-model="selected"
-        ng-options="opt as opt.label for opt in options" make-highlight>
+    <select id="headerSelect" ng-change="alignBody(selected)" ng-model="selected"
+        ng-options="obj.reportHeader for obj in reportModel" make-highlight>
     </select><span ng-hide="boxFlag"> -- Choose a header for your report</span>
-    <div ng-show="boxFlag">
-        <textarea ng-change="addToHeading(areaText, selected.label)" rows="7" cols="50" class="form-control" ng-model="areaText">	
+    <div ng-show="!!reportModel">
+        <textarea rows="7" cols="50" class="form-control" ng-model="selected.reportBody">	
         </textarea>
     </div>
 </div>

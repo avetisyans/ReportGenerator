@@ -111,33 +111,42 @@ router.post('/reports', function(req, res) {
     });
 });
 
-router.post('/us', function(req, res) {
+/*router.post('/us', function(req, res) {
     var user = new User();
-    user.username = "FirstUser";
-    user.password = "password1";
+    user.username = "SecondUser";
+    user.password = "password2";
 
     user.save(function(err, rep) {
         if (err) {
             res.send(err);
         }
         var report = new Report();
-        report.report_body.To_Do = "1 To_Do OF FirstUser";
-        report.report_body.Done = "1 Done of FirstUser";
-        report.report_body.Skipped = "1 Skipped of FirstUser";
+        report.report_body.To_Do = "1 To_Do OF SecondUser";
+        report.report_body.Done = "1 Done of SecondUser";
+        report.report_body.Skipped = "1 Skipped of SecondUser";
         report.user_id = rep;
-        report.username = "FirstUser";
+        report.username = "SecondUser";
         report.save();
 
         var report = new Report();
-        report.report_body.To_Do = "2 To_Do OF FirstUser";
-        report.report_body.Done = "2 Done of FirstUser";
-        report.report_body.Skipped = "2 Skipped of FirstUser";
+        report.report_body.To_Do = "2 To_Do OF SecondUser";
+        report.report_body.Done = "2 Done of SecondUser";
+        report.report_body.Skipped = "2 Skipped of SecondUser";
         report.user_id = rep;
-        report.username = "FirstUser";
+        report.username = "SecondUser";
         report.save();
+
+        var report = new Report();
+        report.report_body.To_Do = "3 To_Do OF SecondUser";
+        report.report_body.Done = "3 Done of SecondUser";
+        report.report_body.Skipped = "3 Skipped of SecondUser";
+        report.user_id = rep;
+        report.username = "SecondUser";
+        report.save();
+
         res.json({message: "User has been Created"});
     });
-});
+});*/
 
 router.post('/authenticate', function(req, res) {
     var username = req.body.username;
